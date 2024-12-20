@@ -1,14 +1,24 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { CreateTodo } from "../components/CreateTodo"
+import { Todos } from "../components/Todos"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todos, setTodos] = useState([])
+  fetch('http://localhost:4000/todos/', {
+    method: "GET"
+  })
+  .then(async function(res){
+    const json = await res.json()
+    // console.log(json)
+    setTodos(json)
+    // console.log(todos)
+  })
 
   return (
     <div>
-    hi there
+    <CreateTodo></CreateTodo>
+    <Todos todos={todos}></Todos>
     </div>
   )
 }
